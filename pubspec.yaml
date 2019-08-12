@@ -1,8 +1,8 @@
 name: flutter_biometrics
 description: Flutter plugin which lets you to generate key pair and do cryptographic signing using biometric authentication.
 version: 0.0.1
-author: plachtinas@gmail.com
-homepage:
+author: Lukas Plachtinas <lukas@travelunion.eu>
+homepage: http://www.travelunion.eu
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  meta: ^1.1.7
 
 dev_dependencies:
   flutter_test:

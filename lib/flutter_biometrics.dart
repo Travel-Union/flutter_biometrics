@@ -26,7 +26,7 @@ class FlutterBiometrics {
   /// [reason] is the message to show when user will be prompted to authenticate using biometrics
   /// 
   /// Provide [dialogMessages] if you want to customize messages for the auth dialog
-  Future<String> createKeys({
+  Future<dynamic> createKeys({
     @required String reason,
     DialogMessages dialogMessages = const DialogMessages(),
   }) async {
@@ -42,7 +42,7 @@ class FlutterBiometrics {
           message: 'flutter-biometrics currently supports only Android operating system.',
           details: 'OS you are using is ${Platform.operatingSystem}');
     }
-    return await _channel.invokeMethod<String>(
+    return await _channel.invokeMethod<dynamic>(
         'createKeys', args);
   }
 
@@ -55,7 +55,7 @@ class FlutterBiometrics {
   /// [reason] is the message to show when user will be prompted to authenticate using biometrics
   /// 
   /// Provide [dialogMessages] if you want to customize messages for the auth dialog
-  Future<String> sign({
+  Future<dynamic> sign({
     @required String payload,
     @required String reason,
     DialogMessages dialogMessages = const DialogMessages(),
@@ -74,7 +74,7 @@ class FlutterBiometrics {
           message: 'flutter-biometrics currently supports only Android operating system.',
           details: 'OS you are using is ${Platform.operatingSystem}');
     }
-    return await _channel.invokeMethod<String>(
+    return await _channel.invokeMethod<dynamic>(
         'sign', args);
   }
 

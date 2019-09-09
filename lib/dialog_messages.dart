@@ -22,13 +22,15 @@ class DialogMessages {
   Map<String, String> get messages {
     return <String, String>{
       'hint': hint ?? 'Touch sensor',
-      'notRecognized': notRecognized ?? 'Fingerprint not recognized. Try again.',
+      'notRecognized':
+          notRecognized ?? 'Fingerprint not recognized. Try again.',
       'success': success ?? 'Authentication successful.',
       'cancel': cancel ?? 'Cancel',
       'title': title ?? 'Authentication',
       'required': requiredTitle ?? 'Fingerprint required',
       'settings': settings ?? 'Go to settings',
-      'settingsDescription': settingsDescription ?? 'Fingerprint is not set up on your device. Go to \'Settings > Security\' to add your fingerprint.',
+      'settingsDescription': settingsDescription ??
+          'Fingerprint is not set up on your device. Go to \'Settings > Security\' to add your fingerprint.',
     };
   }
 }

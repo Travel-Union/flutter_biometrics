@@ -8,6 +8,10 @@ class DialogMessages {
     this.requiredTitle,
     this.settings,
     this.settingsDescription,
+    this.lockOut,
+    this.goToSettingsButton,
+    this.goToSettingsDescription,
+    this.cancelButton,
   });
 
   final String hint;
@@ -18,6 +22,11 @@ class DialogMessages {
   final String requiredTitle;
   final String settings;
   final String settingsDescription;
+  //iOS specific messages
+  final String lockOut;
+  final String goToSettingsButton;
+  final String goToSettingsDescription;
+  final String cancelButton;
 
   Map<String, String> get messages {
     return <String, String>{
@@ -31,6 +40,14 @@ class DialogMessages {
       'settings': settings ?? 'Go to settings',
       'settingsDescription': settingsDescription ??
           'Fingerprint is not set up on your device. Go to \'Settings > Security\' to add your fingerprint.',
+      'lockOut': lockOut ??
+          'Biometric authentication is disabled. Please lock and unlock your screen to '
+              'enable it.',
+      'goToSetting': goToSettingsButton ?? 'Go to settings',
+      'goToSettingDescriptionIOS': goToSettingsDescription ??
+          'Biometric authentication is not set up on your device. Please either enable '
+              'Touch ID or Face ID on your phone.',
+      'okButton': cancelButton ?? 'OK',
     };
   }
 }

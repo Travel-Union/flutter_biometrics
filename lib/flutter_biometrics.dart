@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:meta/meta.dart';
@@ -25,23 +24,22 @@ class FlutterBiometrics {
   /// 
   /// [reason] is the message to show when user will be prompted to authenticate using biometrics
   /// 
+  /// [showIOSErrorDialog] is used on iOS side to decide if error dialog should be displayed
+  /// 
   /// Provide [dialogMessages] if you want to customize messages for the auth dialog
   Future<dynamic> createKeys({
     @required String reason,
+    showIOSErrorDialog = true,
     DialogMessages dialogMessages = const DialogMessages(),
   }) async {
     assert(reason != null);
     final Map<String, Object> args = <String, Object>{
       'reason': reason,
+      'useErrorDialogs': showIOSErrorDialog,
     };
-    if (Platform.isAndroid) {
-      args.addAll(dialogMessages.messages);
-    } else {
-      throw PlatformException(
-          code: 'OSNotSupported',
-          message: 'flutter-biometrics currently supports only Android operating system.',
-          details: 'OS you are using is ${Platform.operatingSystem}');
-    }
+
+    args.addAll(dialogMessages.messages);
+
     return await _channel.invokeMethod<dynamic>(
         'createKeys', args);
   }
@@ -54,10 +52,13 @@ class FlutterBiometrics {
   /// 
   /// [reason] is the message to show when user will be prompted to authenticate using biometrics
   /// 
+  /// [showIOSErrorDialog] is used on iOS side to decide if error dialog should be displayed
+  ///
   /// Provide [dialogMessages] if you want to customize messages for the auth dialog
   Future<dynamic> sign({
     @required String payload,
     @required String reason,
+    showIOSErrorDialog = true,
     DialogMessages dialogMessages = const DialogMessages(),
   }) async {
     assert(payload != null);
@@ -65,15 +66,11 @@ class FlutterBiometrics {
     final Map<String, Object> args = <String, Object>{
       'payload': payload,
       'reason': reason,
+      'useErrorDialogs': showIOSErrorDialog,
     };
-    if (Platform.isAndroid) {
-      args.addAll(dialogMessages.messages);
-    } else {
-      throw PlatformException(
-          code: 'OSNotSupported',
-          message: 'flutter-biometrics currently supports only Android operating system.',
-          details: 'OS you are using is ${Platform.operatingSystem}');
-    }
+
+    args.addAll(dialogMessages.messages);
+
     return await _channel.invokeMethod<dynamic>(
         'sign', args);
   }

@@ -1,3 +1,7 @@
+## 0.1.0
+
+* Added support for iOS
+
 ## 0.0.4
 
 * Return type changed for *createKeys* and *sign* from [String] to [dynamic]

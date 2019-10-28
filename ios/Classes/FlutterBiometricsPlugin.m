@@ -69,8 +69,8 @@
 
   if (status == errSecSuccess) {
     NSError *error;
-    NSData *dataToSign = [arguments[@"payload"] dataUsingEncoding:NSUTF8StringEncoding];
-    NSData *signature = CFBridgingRelease(SecKeyCreateSignature(privateKey, kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA256, (CFDataRef)dataToSign, (void *)&error));
+    NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:arguments[@"payload"] options:0];
+    NSData *signature = CFBridgingRelease(SecKeyCreateSignature(privateKey, kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA256, (CFDataRef)decodedData, (void *)&error));
 
     if (signature != nil) {
       NSString *signatureString = [signature base64EncodedStringWithOptions:0];

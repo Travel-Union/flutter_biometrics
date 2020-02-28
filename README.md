@@ -6,8 +6,6 @@ Flutter plugin which lets you to generate key pair and do cryptographic signing 
 
 Heavily influenced by [local_auth](https://github.com/flutter/plugins/tree/master/packages/local_auth)
 
-## **Currently only supported for Android**
-
 ## Usage in Dart
 
 Import the relevant file:

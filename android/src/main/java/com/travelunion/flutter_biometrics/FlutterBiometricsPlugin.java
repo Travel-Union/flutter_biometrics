@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.util.Base64;
 
@@ -194,6 +195,10 @@ public class FlutterBiometricsPlugin implements MethodCallHandler {
             }
           });
       authenticationHelper.authenticate();
+    } catch(KeyPermanentlyInvalidatedException invalidatedException) {
+      if (authInProgress.compareAndSet(true, false)) {
+        result.error("biometrics_invalidated", "Biometric keys are invalidated: " + invalidatedException.getMessage(), null);
+      }
     } catch (Exception e) {
       if (authInProgress.compareAndSet(true, false)) {
         result.error("sign_error_key", "Error retrieving keys: " + e.getMessage(), null);

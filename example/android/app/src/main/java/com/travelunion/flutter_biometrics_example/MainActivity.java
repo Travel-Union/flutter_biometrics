@@ -1,13 +1,6 @@
 package com.travelunion.flutter_biometrics_example;
 
-import android.os.Bundle;
-import io.flutter.app.FlutterFragmentActivity;
-import io.flutter.plugins.GeneratedPluginRegistrant;
+import io.flutter.embedding.android.FlutterFragmentActivity;
 
 public class MainActivity extends FlutterFragmentActivity {
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    GeneratedPluginRegistrant.registerWith(this);
-  }
 }

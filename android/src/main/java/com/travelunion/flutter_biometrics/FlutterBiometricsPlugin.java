@@ -35,7 +35,7 @@ public class FlutterBiometricsPlugin implements MethodCallHandler {
   private final AtomicBoolean authInProgress = new AtomicBoolean(false);
 
   public static void registerWith(Registrar registrar) {
-    final MethodChannel channel = new MethodChannel(registrar.messenger(), "flutter_biometrics");
+    final MethodChannel channel = new MethodChannel(registrar.messenger(), Constants.channel);
     channel.setMethodCallHandler(new FlutterBiometricsPlugin(registrar));
   }
 
@@ -45,11 +45,11 @@ public class FlutterBiometricsPlugin implements MethodCallHandler {
 
   @Override
   public void onMethodCall(MethodCall call, final Result result) {
-    if (call.method.equals("createKeys")) {
+    if (call.method.equals(Constants.MethodNames.createKeys)) {
       createKeys(call, result);
-    } else if (call.method.equals("sign")) {
+    } else if (call.method.equals(Constants.MethodNames.sign)) {
       sign(call, result);
-    } else if (call.method.equals("availableBiometricTypes")) {
+    } else if (call.method.equals(Constants.MethodNames.availableBiometricTypes)) {
       availableBiometricTypes(result);
     } else {
       result.notImplemented();
@@ -217,15 +217,15 @@ public class FlutterBiometricsPlugin implements MethodCallHandler {
       PackageManager packageManager = activity.getPackageManager();
       if (Build.VERSION.SDK_INT >= 23) {
         if (packageManager.hasSystemFeature(PackageManager.FEATURE_FINGERPRINT)) {
-          biometrics.add("fingerprint");
+          biometrics.add(Constants.BiometricsType.fingerprint);
         }
       }
       if (Build.VERSION.SDK_INT >= 29) {
         if (packageManager.hasSystemFeature(PackageManager.FEATURE_FACE)) {
-          biometrics.add("face");
+          biometrics.add(Constants.BiometricsType.faceId);
         }
         if (packageManager.hasSystemFeature(PackageManager.FEATURE_IRIS)) {
-          biometrics.add("iris");
+          biometrics.add(Constants.BiometricsType.iris);
         }
       }
       result.success(biometrics);

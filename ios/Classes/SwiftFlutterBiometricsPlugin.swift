@@ -5,14 +5,14 @@ import Security
 
 public class SwiftFlutterBiometricsPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let channel = FlutterMethodChannel(name: "flutter_biometrics", binaryMessenger: registrar.messenger())
+        let channel = FlutterMethodChannel(name: BiometricsConstants.channel, binaryMessenger: registrar.messenger())
         let instance = SwiftFlutterBiometricsPlugin()
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
-        case "createKeys":
+        case BiometricsConstants.MethodNames.createKeys:
             guard let args = call.arguments else {
                 result("no arguments found for method: (" + call.method + ")")
                 return
@@ -25,7 +25,7 @@ public class SwiftFlutterBiometricsPlugin: NSObject, FlutterPlugin {
                 result("'reason' is required for method: (" + call.method + ")")
             }
             break
-        case "sign":
+        case BiometricsConstants.MethodNames.sign:
             guard let args = call.arguments else {
                 result("no arguments found for method: (" + call.method + ")")
                 return
@@ -39,7 +39,7 @@ public class SwiftFlutterBiometricsPlugin: NSObject, FlutterPlugin {
                 result("'reason' and 'payload' are required for method: (" + call.method + ")")
             }
             break
-        case "availableBiometricTypes":
+        case BiometricsConstants.MethodNames.availableBiometricTypes:
             self.availableBiometricTypes(result: result)
             break
         default:
@@ -128,18 +128,18 @@ public class SwiftFlutterBiometricsPlugin: NSObject, FlutterPlugin {
             if (authError == nil) {
                 if #available(iOS 11, *) {
                     if (context.biometryType == .faceID) {
-                        biometrics.append("face")
+                        biometrics.append(BiometricsConstants.BiometricsType.faceId)
                     } else if (context.biometryType == .touchID) {
-                        biometrics.append("fingerprint")
+                        biometrics.append(BiometricsConstants.BiometricsType.fingerprint)
                     } else if (context.biometryType == .LABiometryNone) {
-                        biometrics.append("none")
+                        biometrics.append(BiometricsConstants.BiometricsType.none)
                     }
                 } else {
-                    biometrics.append("fingerprint")
+                    biometrics.append(BiometricsConstants.BiometricsType.fingerprint)
                 }
             }
         } else if (authError!.code == kLAErrorTouchIDNotEnrolled) {
-            biometrics.append("undefined")
+            biometrics.append(BiometricsConstants.BiometricsType.undefined)
         }
         
         result(biometrics)
@@ -197,37 +197,6 @@ public class SwiftFlutterBiometricsPlugin: NSObject, FlutterPlugin {
         let keyAlias = "com.flutterbiometrics.biometricKey"
         return keyAlias.data(using: .utf8)!
     }
-    
-    /*private func addHeaderPublickey(publicKey: NSData) -> NSData {
-     let result = NSMutableData()
-     let encodingLength: Int = (publicKey.count + 1).encodedOctets().count
-     
-     let OID: [CUnsignedChar] = [0x30, 0x0d, 0x06, 0x09, 0x2a, 0x86, 0x48, 0x86,
-     0xf7, 0x0d, 0x01, 0x01, 0x01, 0x05, 0x00]
-     
-     var builder: [CUnsignedChar] = []
-     
-     // ASN.1 SEQUENCE
-     builder.append(0x30)
-     
-     // Overall size, made of OID + bitstring encoding + actual key
-     let size = OID.count + 2 + encodingLength + publicKey.length
-     let encodedSize = size.encodedOctets()
-     builder.append(contentsOf: encodedSize)
-     result.append(builder, length: builder.count)
-     result.append(OID, length: OID.count)
-     builder.removeAll(keepingCapacity: false)
-     
-     builder.append(0x03)
-     builder.append(contentsOf: encodeLength(length: publicKey.length + 1))
-     builder.append(0x00)
-     result.append(builder, length: builder.count)
-     
-     // Actual key bytes
-     result.append(publicKey as Data)
-     
-     return result
-     }*/
     
     func dataByPrependingX509Header(publicKey: Data) -> Data {
         let result = NSMutableData()

@@ -1,3 +1,9 @@
+## 0.2.0
+
+* V2 Embedding for Android
+* Re-written in Swift
+* Biometrics invalidation upon context change
+* Naming changes for enum BiometricType -> BiometricsType
 ## 0.1.0
 
 * Added support for iOS

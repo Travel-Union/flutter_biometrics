@@ -146,7 +146,13 @@ public class SwiftFlutterBiometricsPlugin: NSObject, FlutterPlugin {
     }
     
     private func createAndStoreKeyPair(result: @escaping FlutterResult) -> Void {
-        let sec = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly, .touchIDAny, nil)
+        var sec: SecAccessControl?
+        
+        if #available(iOS 11.3, *) {
+            sec = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly, .biometryAny, nil)
+        } else {
+            sec = SecAccessControlCreateWithFlags(kCFAllocatorDefault, kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly, .touchIDAny, nil)
+        }
         
         if(sec == nil) {
             result(nil)

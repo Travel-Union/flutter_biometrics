@@ -30,7 +30,7 @@ class FlutterBiometrics {
   ///
   /// Provide [dialogMessages] if you want to customize messages for the auth dialog
   Future<dynamic> createKeys({
-    @required String reason,
+    required String reason,
     showIOSErrorDialog = true,
     DialogMessages dialogMessages = const DialogMessages(),
   }) async {
@@ -57,8 +57,8 @@ class FlutterBiometrics {
   ///
   /// Provide [dialogMessages] if you want to customize messages for the auth dialog
   Future<dynamic> sign({
-    @required String payload,
-    @required String reason,
+    required String payload,
+    required String reason,
     showIOSErrorDialog = true,
     DialogMessages dialogMessages = const DialogMessages(),
   }) async {
@@ -87,7 +87,7 @@ class FlutterBiometrics {
   /// - BiometricType.fingerprint
   /// - BiometricType.iris (not yet implemented)
   Future<List<BiometricsType>> getAvailableBiometricTypes() async {
-    final List<String> result = (await _channel.invokeListMethod<String>(MethodNames.availableBiometricTypes));
+    final List<String>? result = (await _channel.invokeListMethod<String>(MethodNames.availableBiometricTypes));
 
     return BiometricsTypeMapper.mapFrom(list: result);
   }

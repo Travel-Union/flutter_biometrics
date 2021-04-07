@@ -14,19 +14,19 @@ class DialogMessages {
     this.cancelButton,
   });
 
-  final String hint;
-  final String notRecognized;
-  final String success;
-  final String cancel;
-  final String title;
-  final String requiredTitle;
-  final String settings;
-  final String settingsDescription;
+  final String? hint;
+  final String? notRecognized;
+  final String? success;
+  final String? cancel;
+  final String? title;
+  final String? requiredTitle;
+  final String? settings;
+  final String? settingsDescription;
   //iOS specific messages
-  final String lockOut;
-  final String goToSettingsButton;
-  final String goToSettingsDescription;
-  final String cancelButton;
+  final String? lockOut;
+  final String? goToSettingsButton;
+  final String? goToSettingsDescription;
+  final String? cancelButton;
 
   Map<String, String> get messages {
     return <String, String>{

@@ -2,8 +2,8 @@ import 'package:flutter_biometrics/constants/available_biometrics_types.dart';
 import 'package:flutter_biometrics/models/biometrics_type.dart';
 
 class BiometricsTypeMapper {
-  static List<BiometricsType> mapFrom({List<String> list = const []}) {
-    final result = List<BiometricsType>();
+  static List<BiometricsType> mapFrom({List<String>? list = const []}) {
+    final List<BiometricsType> result = [];
 
     if(list == null) {
       return result;
@@ -20,7 +20,7 @@ class BiometricsTypeMapper {
     return result;
   }
 
-  static BiometricsType from({String type}) {
+  static BiometricsType from({String? type}) {
     switch (type) {
       case AvailableBiometricsTypes.faceId:
         return BiometricsType.faceId;

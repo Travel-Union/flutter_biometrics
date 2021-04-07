@@ -1,3 +1,7 @@
+## 0.3.0
+
+* Migration to null-safety
+
 ## 0.2.0
 
 * V2 Embedding for Android
